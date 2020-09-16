@@ -5,6 +5,7 @@ import processing.sound.Sound;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 
 /**
  * Represents the main JFrame with a container for the required PApplet object the sound library depends on.
@@ -16,6 +17,19 @@ public class MainFrame extends JFrame {
     static final Sound SOUND = new Sound(EXTRA_OVERHEAD);
     static {
         System.out.println("The extra overhead's sketch path is: " + EXTRA_OVERHEAD.sketchPath());
+    }
+
+    /**
+     * Restarts the program by ending the previous MainFrame and recreating one
+     */
+    static void restartProgram() {
+        if (instance != null) {
+            instance.dispatchEvent(new WindowEvent(instance, WindowEvent.WINDOW_CLOSING));
+            instance.dispose();
+
+            instance = null;
+        }
+        getInstance();
     }
 
     /**

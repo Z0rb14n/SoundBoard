@@ -14,14 +14,14 @@ public class SoundFileButton extends SoundButton {
     private boolean isPaused = false;
     private String filePath;
     private SoundFile soundFile;
-    private long nanoTimeStart = System.nanoTime();
+    private long millisTimeStart = System.currentTimeMillis();
     private long pauseTime = 0;
     private float pitch = 1; // pitch of range 0.5 - 2
     private float volume = VOLUME_SCALING;
     private PlayButton playButton = new PlayButton(this);
     private VolumePitch volumePitch = new VolumePitch(this);
     private StopPauseReset spr = new StopPauseReset(this);
-    private static final float SECONDS_TO_NANOS = 1000000000f;
+    private static final float SECONDS_TO_MILLIS = 1000f;
 
     /**
      * Initializes SoundFileButton with given file name ("/path/to/jar/data/fileName") and sound button title
@@ -46,10 +46,10 @@ public class SoundFileButton extends SoundButton {
      */
     @Override
     public void update() {
-        // WARNING: POTENTIAL OVERFLOW IF System.nanoTime() OVERFLOWS
-        if (soundFile != null && (System.nanoTime() > nanoTimeStart + (soundFile.duration() * SECONDS_TO_NANOS) || !soundFile.isPlaying())) {
+        // WARNING: POTENTIAL OVERFLOW IF System.currentTimeMillis() OVERFLOWS
+        if (soundFile != null && (System.currentTimeMillis() > millisTimeStart + (soundFile.duration() * SECONDS_TO_MILLIS) || !soundFile.isPlaying())) {
             soundFile.stop();
-            nanoTimeStart = -1;
+            millisTimeStart = -1;
             unloadSFile();
         }
         spr.updateButtons();
@@ -120,7 +120,7 @@ public class SoundFileButton extends SoundButton {
     public void pause() {
         if (soundFile == null) return;
         if (soundFile.isPlaying()) {
-            pauseTime = (long) Math.ceil(soundFile.position() * SECONDS_TO_NANOS);
+            pauseTime = (long) Math.ceil(soundFile.position() * millisTimeStart);
             soundFile.stop();
             unloadSFile();
             isPaused = true;
@@ -139,12 +139,12 @@ public class SoundFileButton extends SoundButton {
             soundFile.rate(pitch);
             soundFile.amp(volume / VOLUME_SCALING);
             soundFile.play();
-            nanoTimeStart = System.nanoTime();
+            millisTimeStart = System.nanoTime();
             if (!isPaused) {
                 soundFile.jump(0);
             } else {
-                soundFile.jump(pauseTime / SECONDS_TO_NANOS);
-                nanoTimeStart -= pauseTime;
+                soundFile.jump(pauseTime / millisTimeStart);
+                millisTimeStart -= pauseTime;
             }
         }
         update();

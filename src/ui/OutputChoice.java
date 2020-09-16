@@ -19,6 +19,7 @@ import java.util.HashMap;
  * since the sound appears to be muted (permanently) when the audio device changes.
  */
 class OutputChoice extends JPanel {
+    private static boolean IS_DISABLED = true;
     private static HashMap<String,Integer> outputDevices = new HashMap<>(10);
     private static String defaultOutput = "";
     private OutputsDropdownBox odb = new OutputsDropdownBox();
@@ -48,8 +49,12 @@ class OutputChoice extends JPanel {
         RefreshButton() {
             super("Refresh Audio Devices");
             setFocusable(false);
-            //setEnabled(false);
-            //setToolTipText("Disabled until output device changing works.");
+            /*
+            if (IS_DISABLED) {
+                setEnabled(false);
+                setToolTipText("Disabled until output device changing works.");
+            }
+            */
             addActionListener(this);
         }
 
@@ -84,17 +89,18 @@ class OutputChoice extends JPanel {
             super(outputDevices.keySet().toArray(new String[]{}));
             setSelectedItem(defaultOutput);
             setEditable(false);
-            setEnabled(false);
-            setToolTipText("Disabled until output device changing works.");
+            if (IS_DISABLED) {
+                setEnabled(false);
+                setToolTipText("Disabled until output device changing works.");
+            } else addItemListener(this);
             setFocusable(false);
-            addItemListener(this);
         }
 
-        @Override
         /**
          * Changes the audio device when a different item is selected.
          * @param e itemEvent to get new item selected
          */
+        @Override
         public void itemStateChanged(ItemEvent e) {
             String item = (String) e.getItem();
             MainFrame.getInstance().stopAllSounds();
