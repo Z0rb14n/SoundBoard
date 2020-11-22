@@ -13,18 +13,14 @@ import java.util.ArrayList;
 class MainPanel extends JPanel {
     private static final ArrayList<SoundButton> buttons = new ArrayList<>(35);
     static {
-        buttons.add(new SoundFileButton("We are Number One.wav", "We are number one!"));
+        buttons.add(new SoundFileButton("Curb Your Enthusiasm.wav", "Curb Your Enthusiasm"));
         buttons.add(new SoundFileButton("Rickroll.wav", "Rickroll"));
-        buttons.add(new SoundFileButton("Nyancat.wav", "Nyan cat"));
-        buttons.add(new SoundFileButton("Minecraft_Earrape.wav", "Minecraft Earthquake Theme"));
-        buttons.add(new SoundFileButton("Monkeys Spinning Monkeys.wav", "Monkeys Spinning Monkeys"));
-        buttons.add(new SoundFileButton("Seinfeld Theme.wav", "Seinfeld Theme"));
-        buttons.add(new SoundFileButton("National Anthem of USSR.wav", "Russian National Anthem"));
-        buttons.add(new SoundFileButton( "All_Star.wav", "SomeBODY ONCE TOLD ME"));
+        buttons.add(new SoundFileButton("Crickets.wav", "Crickets"));
+        buttons.add(new SoundFileButton("Ohno.wav", "Oh no"));
+        buttons.add(new SoundFileButton("AlertSoundEffect.wav", "Alert!"));
+        buttons.add(new SoundFileButton("Ladies and Gentlemen We got him.wav", "Ladies and Gentlemen, we got him."));
         //
         buttons.add(new SoundFileButton( "1000 Hz.wav", "BLEEP")); // ----- TODO SIN OSC
-        buttons.add(new SoundFileButton("X-Files Theme.wav", "X-Files Theme"));
-        buttons.add(new SoundFileButton( "Bag Raiders - Shooting Stars.wav", "Shooting Stars"));
         buttons.add(new SoundFileButton( "losing_Horn_Sound.wav", "Losing Horn"));
         buttons.add(new SoundFileButton( "Monsters Inc Earrape.wav", "Monster's Inc Theme"));
         buttons.add(new SoundFileButton( "Nope.wav", "Nope"));
@@ -63,7 +59,7 @@ class MainPanel extends JPanel {
         setLayout(new BorderLayout());
         add(new OutputChoice(),BorderLayout.PAGE_START);
         JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(2,0));
+        jp.setLayout(new GridLayout(3, 0));
         for (SoundButton sb : buttons) {
             jp.add(sb);
         }
