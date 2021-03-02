@@ -11,6 +11,9 @@ import java.awt.*;
  */
 public class SoundFileButton extends SoundButton {
     private static final float VOLUME_SCALING = 100f; // volume of range 0-100
+    public static final String[] SUPPORTED_EXT = new String[]{
+            "wav", "aif", "aiff", "mp3"
+    };
     private boolean isPaused = false;
     private String filePath;
     private SoundFile soundFile;
@@ -31,6 +34,14 @@ public class SoundFileButton extends SoundButton {
      */
     public SoundFileButton(String fileName, String title) {
         this.filePath = fileName;
+        boolean didBreak = false;
+        for (String str : SUPPORTED_EXT) {
+            if (filePath.endsWith(str)) {
+                didBreak = true;
+                break;
+            }
+        }
+        if (!didBreak) System.out.println("Warning: potentially unsupported file extension: " + fileName);
         setLayout(new BorderLayout());
         JLabel label = new JLabel(title);
         label.setHorizontalAlignment(JLabel.CENTER);

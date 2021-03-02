@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ModifiedSoundBoard:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ModifiedSoundBoard_jar</output-path>
+    <root id="archive" name="ModifiedSoundBoard.jar">
+      <element id="module-output" name="ModifiedSoundBoard" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/Processing Sound/javamp3-1.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/Processing Sound/jsyn-20171016.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/Processing Sound/sound.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/Processing Core/core.jar" path-in-jar="/" />
+      <element id="directory" name="data">
+        <element id="dir-copy" path="$PROJECT_DIR$/data" />
+      </element>
+    </root>
+  </artifact>
+</component>
